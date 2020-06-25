@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="main">
+            <div class="banner" id="banner">
+                <h1>Blackjack</h1>
+            </div>
+            <div class="table" id="table">
+                <div class="options" id="options">
+                    <button id="restart">Restart</button>
+                    <button id="hit">Hit</button>
+                    <button id="stay">Stay</button>
+                </div>
+                <div class="deck" id="deck"></div>
+                <div class="users" id="users">
+                    <div class="player" id="player">
+                        <div>Player</div>
+                        <div id="hand-player"></div>
+                        <div class="points" id="points"></div>
+                    </div>
+                    <div class="dealer" id="dealer">
+                        <div>Dealer</div>
+                        <div id="hand-dealer"></div>
+                        <div class="points-dealer" id="points-dealer"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="code.js"></script>
+    </body>
+</html>
