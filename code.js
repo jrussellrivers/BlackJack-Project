@@ -60,6 +60,10 @@ let users = [{
     hand: []
 }]
 
+let playerPoints = document.getElementById('points')
+playerPoints.innerText = users[0].points
+let dealerPoints = document.getElementById('points-dealer')
+
 function makeCard(card){
     let el = document.createElement('div');
     el.setAttribute('class', 'card')
@@ -84,6 +88,7 @@ const dealHand = ()=>{
             users[j].hand.push(card)
             dealCard(card, users[j])
             changePoints(card, users[j])
+            playerPoints.innerText = users[0].points
         }
     }
     // changeDeck()
@@ -94,6 +99,7 @@ console.log(users[0])
 hitMe(0)
 console.log(users[0])
 console.log(users[1])
+dealerPlay(users[1])
 console.log(shuffledDeck)
 
 // Hit Function
@@ -104,6 +110,7 @@ function hitMe(idx){
         dealCard(card, users[idx])
         changePoints(card, users[idx])
         check(idx)
+        playerPoints.innerText = users[0].points
     }
 
 function check(idx){
@@ -113,6 +120,49 @@ function check(idx){
         }
     }
     if (users[idx].points > 21){
-        console.log('You lose')
     }
 } 
+
+// I think Im gonna code the dealer playing here
+// These console logs are gonna do things later
+
+function dealerPlay(dealer){
+    dealerPoints.innerText = dealer.points
+    while (dealer.points < 17){
+        hitMe(1)
+        dealerPoints.innerText = dealer.points
+    }
+    const score = dealer.points
+    switch (true){
+        case (score == 21 &&  users[0].points == 21):
+            console.log('Draw')
+            break
+        case (score == 21 && users[0].points > 21):
+            console.log('You Lose!')
+            break
+        case (score == 21 && users[0].points < 21):
+            console.log('Dealer Blackjack! You lose!')
+            break
+        case (score > 21 && users[0].points > 21):
+            console.log('Dealer bust. You still lose!')
+            break
+        case (score > 21 && users[0].points == 21):
+            console.log('Dealer Busted. You got Blackjack! You Win!')
+            break
+        case (score > 21 && users[0].points < 21):
+            console.log('Dealer bust. You win!')
+            break
+        case (score < 21 && users[0].points > 21):
+            console.log('You busted. Dealer wins!')
+            break
+        case (score < 21 && users[0].points == 21):
+            console.log('Blackjack! You win!')
+            break
+        case (score < 21 && score > users[0].points):
+            console.log('Dealer wins!')
+            break
+        case (score < 21 && score < users[0].points):
+            console.log('You win!')
+            break
+    }
+}
