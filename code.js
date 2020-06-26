@@ -45,8 +45,50 @@ function shuffle(array) {
         array[randomIndex] = temporaryValue;
     }
 
-    return array;
+    return array
 }
 
 let shuffledDeck = shuffle(createDeck())
 console.log(shuffledDeck)
+
+// Creating players and hands
+
+let users = [{
+    name: 'Player',
+    points: 0,
+    hand: []
+},{
+    name: 'Dealer',
+    points: 0,
+    hand: []
+}]
+
+function showCard(card){
+    let el = document.createElement('div');
+    el.setAttribute('class', 'card')
+    el.innerHTML = card.suit + ' ' + card.value;
+    return el
+}
+
+function makeCard(card, player){
+    let hand = document.getElementById('hand-' + player.name)
+    hand.append(showCard(card))
+}
+
+const dealHand = ()=>{
+    for (i=0; i < 2; i++){
+        for (j=0; j < users.length; j++){
+            card = shuffledDeck.pop()
+            console.log(card)
+            console.log(users[j])
+            users[j].hand.push(card)
+            console.log(users[j].hand)
+            makeCard(card, users[j])
+            // changePoints()
+        }
+    }
+    // changeDeck()
+}
+
+dealHand()
+console.log(users[0])
