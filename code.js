@@ -21,8 +21,6 @@ function createDeck(){
     return deck
 }
 
-console.log(createDeck())
-
 // Shuffle formula
 // I used this formula because it was highly reccommended for shuffling an array:
 // https://github.com/Daplie/knuth-shuffle/blob/master/index.js
@@ -49,7 +47,6 @@ function shuffle(array) {
 }
 
 let shuffledDeck = shuffle(createDeck())
-console.log(shuffledDeck)
 
 // Creating players and hands
 
@@ -63,28 +60,30 @@ let users = [{
     hand: []
 }]
 
-function showCard(card){
+function makeCard(card){
     let el = document.createElement('div');
     el.setAttribute('class', 'card')
     el.innerHTML = card.suit + ' ' + card.value;
     return el
 }
 
-function makeCard(card, player){
+function dealCard(card, player){
     let hand = document.getElementById('hand-' + player.name)
-    hand.append(showCard(card))
+    hand.append(makeCard(card))
+}
+
+const changePoints = (card, user)=>{
+    user.points += card.weight
 }
 
 const dealHand = ()=>{
     for (i=0; i < 2; i++){
         for (j=0; j < users.length; j++){
-            card = shuffledDeck.pop()
+            let card = shuffledDeck.pop()
             console.log(card)
-            console.log(users[j])
             users[j].hand.push(card)
-            console.log(users[j].hand)
-            makeCard(card, users[j])
-            // changePoints()
+            dealCard(card, users[j])
+            changePoints(card, users[j])
         }
     }
     // changeDeck()
@@ -92,3 +91,28 @@ const dealHand = ()=>{
 
 dealHand()
 console.log(users[0])
+hitMe(0)
+console.log(users[0])
+console.log(users[1])
+console.log(shuffledDeck)
+
+// Hit Function
+
+function hitMe(idx){
+        let card = shuffledDeck.pop();
+        users[idx].hand.push(card)
+        dealCard(card, users[idx])
+        changePoints(card, users[idx])
+        check(idx)
+    }
+
+function check(idx){
+    for (i=0; i < users[idx].hand.length; i++){
+        if (users[idx].hand[i].value == 'A' && users[idx].points > 21){
+            users[idx].points -= 10
+        }
+    }
+    if (users[idx].points > 21){
+        console.log('You lose')
+    }
+} 
