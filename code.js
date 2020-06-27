@@ -84,25 +84,35 @@ const dealHand = ()=>{
     for (i=0; i < 2; i++){
         for (j=0; j < users.length; j++){
             let card = shuffledDeck.pop()
-            console.log(card)
+            // console.log(card)
             users[j].hand.push(card)
             dealCard(card, users[j])
             changePoints(card, users[j])
+            if (i == 1){
+                doubleAces(j)
+            }
             playerPoints.innerText = users[0].points
         }
     }
     // changeDeck()
 }
 
-dealHand()
-console.log(users[0])
-hitMe(0)
-console.log(users[0])
-console.log(users[1])
-dealerPlay(users[1])
-console.log(shuffledDeck)
-
 // Hit Function
+function playerHandScore(){
+    let newScore = 0
+    for (i=0; i < users[0].hand.length; i++){
+        newScore += users[0].hand[i].weight
+    }
+    return newScore
+} 
+
+function dealerHandScore(){
+    let newScore = 0
+    for (i=0; i < users[1].hand.length; i++){
+        newScore += users[1].hand[i].weight
+    }
+    return newScore
+} 
 
 function hitMe(idx){
         let card = shuffledDeck.pop();
@@ -110,16 +120,36 @@ function hitMe(idx){
         dealCard(card, users[idx])
         changePoints(card, users[idx])
         check(idx)
-        playerPoints.innerText = users[0].points
+        playerPoints.innerText = playerHandScore()
     }
+
+function doubleAces(idx){
+    for (i=0; i < users[idx].hand.length; i++){
+        if(users[idx].hand[0].value == 'A' && users[idx].hand[1].value == 'A'){
+            newWeight = {weight:1}
+            Object.assign(users[idx].hand[0], newWeight)
+        }
+    }
+}
 
 function check(idx){
     for (i=0; i < users[idx].hand.length; i++){
         if (users[idx].hand[i].value == 'A' && users[idx].points > 21){
-            users[idx].points -= 10
+            newWeight = {weight:1}
+            Object.assign(users[idx].hand[i], newWeight)
+            // users[idx].hand[i].weight === 1
+            // users[idx].points -= 10 --> this caused a bug where it constantly subtracted 10
         }
     }
+    if (users[idx].name == 'Player'){
+        users[0].points = playerHandScore()
+        playerPoints.innerText = playerHandScore()
+    } else if (users[idx].name == 'Dealer'){
+        users[1].points = dealerHandScore()
+        dealerPoints.innerText = dealerHandScore()
+    }
     if (users[idx].points > 21){
+        console.log('Busted')
     }
 } 
 
@@ -127,10 +157,12 @@ function check(idx){
 // These console logs are gonna do things later
 
 function dealerPlay(dealer){
-    dealerPoints.innerText = dealer.points
-    while (dealer.points < 17){
+    let newestScore = dealerHandScore()
+    dealerPoints.innerText = newestScore
+    while ( newestScore < 17){
         hitMe(1)
-        dealerPoints.innerText = dealer.points
+        newestScore = dealerHandScore()
+        dealerPoints.innerText = dealerHandScore()
     }
     const score = dealer.points
     switch (true){
@@ -166,3 +198,12 @@ function dealerPlay(dealer){
             break
     }
 }
+
+//// ----------------------------------------------------------------------
+dealHand()
+console.log(users[0])
+hitMe(0)
+console.log(users[0])
+console.log(users[1])
+dealerPlay(users[1])
+console.log(shuffledDeck)
