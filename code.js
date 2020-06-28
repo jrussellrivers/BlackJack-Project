@@ -49,7 +49,19 @@ function shuffle(array) {
 let shuffledDeck = shuffle(createDeck())
 
 // Creating players and hands
-
+// function playHand(){
+//     let users = [{
+//         name: 'Player',
+//         points: 0,
+//         hand: []
+//     },{
+//         name: 'Dealer',
+//         points: 0,
+//         hand: []
+//     }]
+//     win.innerText = 
+//     dealHand()
+// }
 let users = [{
     name: 'Player',
     points: 0,
@@ -81,6 +93,7 @@ const changePoints = (card, user)=>{
 }
 
 const dealHand = ()=>{
+    win.innerText = ''
     for (i=0; i < 2; i++){
         for (j=0; j < users.length; j++){
             let card = shuffledDeck.pop()
@@ -91,6 +104,7 @@ const dealHand = ()=>{
             if (i == 1){
                 doubleAces(j)
             }
+            dealerPoints.innerText = users[1].points
             playerPoints.innerText = users[0].points
         }
     }
@@ -225,15 +239,38 @@ hitButton.addEventListener('click', ()=>{
 
 let stayButton = document.querySelector('#stay')
 stayButton.addEventListener('click', ()=>{
+    message.innerText = ''
     stayButton.disabled = true
     hitButton.disabled = true
     dealerPlay(users[1])
+    dealButton.disabled = false
+})
+
+function removeCards(idx){
+    let len = users[idx].hand.length
+    users[idx].hand.splice(0,len)
+}
+let dealButton = document.querySelector('#deal')
+dealButton.addEventListener('click', ()=>{
+    // users = Object.assign('users', 'template')
+    removeCards(0)
+    removeCards(1)
+    users[0].points = playerHandScore()
+    users[1].points = dealerHandScore()
+    playerPoints.innerText = users[0].points
+    dealerPoints.innerText = users[1].points
+    let clearPlayer = document.getElementById('hand-Player');
+    while ( clearPlayer.firstChild ) clearPlayer.removeChild( clearPlayer.firstChild );
+    let clearDealer = document.getElementById('hand-Dealer');
+    while ( clearDealer.firstChild ) clearDealer.removeChild( clearDealer.firstChild );
+    dealHand()
+    dealButton.disabled = true
+    stayButton.disabled = false
+    hitButton.disabled = false
 })
 
 //// ----------------------------------------------------------------------
+dealButton.disabled = true
 dealHand()
 console.log(users[0])
-console.log(users[0])
 console.log(users[1])
-// dealerPlay(users[1])
-console.log(shuffledDeck)
