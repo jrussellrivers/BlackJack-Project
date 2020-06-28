@@ -95,7 +95,7 @@ const dealHand = ()=>{
             playerPoints.innerText = users[0].points
         }
     }
-    // changeDeck()
+    changeDeck()
 }
 
 // Hit Function
@@ -119,6 +119,7 @@ function hitMe(idx){
         let card = shuffledDeck.pop();
         users[idx].hand.push(card)
         dealCard(card, users[idx])
+        changeDeck()
         changePoints(card, users[idx])
         check(idx)
         playerPoints.innerText = playerHandScore()
@@ -150,7 +151,7 @@ function check(idx){
         dealerPoints.innerText = dealerHandScore()
     }
     if (users[idx].points > 21){
-        console.log('Busted')
+        message.innerText = 'Busted'
     }
 } 
 
@@ -158,6 +159,7 @@ function check(idx){
 // These console logs are gonna do things later
 
 function dealerPlay(dealer){
+    let win = document.getElementById('win')
     let newestScore = dealerHandScore()
     dealerPoints.innerText = newestScore
     while ( newestScore < 17){
@@ -168,46 +170,71 @@ function dealerPlay(dealer){
     const score = dealer.points
     switch (true){
         case (score == 21 &&  users[0].points == 21):
-            console.log('Draw')
+            win.innerText = 'Draw'
             break
         case (score == 21 && users[0].points > 21):
-            console.log('You Lose!')
+            win.innerText = 'You Lose!'
             break
         case (score == 21 && users[0].points < 21):
-            console.log('Dealer Blackjack! You lose!')
+            win.innerText = 'Dealer Blackjack! You lose!'
             break
         case (score > 21 && users[0].points > 21):
-            console.log('Dealer bust. You still lose!')
+            win.innerText = 'Dealer bust. You still lose!'
             break
         case (score > 21 && users[0].points == 21):
-            console.log('Dealer Busted. You got Blackjack! You Win!')
+            win.innerText = 'Dealer Busted. You got Blackjack! You Win!'
             break
         case (score > 21 && users[0].points < 21):
-            console.log('Dealer bust. You win!')
+            win.innerText = 'Dealer bust. You win!'
             break
         case (score < 21 && users[0].points > 21):
-            console.log('You busted. Dealer wins!')
+            win.innerText = 'You busted. Dealer wins!'
             break
         case (score < 21 && users[0].points == 21):
-            console.log('Blackjack! You win!')
+            win.innerText = 'Blackjack! You win!'
             break
         case (score < 21 && score > users[0].points):
-            console.log('Dealer wins!')
+            win.innerText = 'Dealer wins!'
             break
         case (score < 21 && score < users[0].points):
-            console.log('You win!')
+            win.innerText = 'You win!'
             break
         case (score < 21 && score == users[0].points):
-            console.log('You win!')
+            win.innerText = 'You win!'
             break
     }
 }
 
+function changeDeck(){
+    let deck = document.getElementById('deck')
+    deck.innerText = 'Cards left: ' + shuffledDeck.length
+}
+
+let hitButton = document.querySelector('#hit')
+let message = document.querySelector('#message')
+hitButton.addEventListener('click', ()=>{
+    if (users[0].points == 21){
+        hitButton.disabled = true
+        message.innerText = "You have 21 points! You dont want to hit. Click 'Stay'"
+    } else if (users[0].points < 21){
+        hitMe(0)
+    } else {
+        hitButton.disabled = true
+        message.innerText = "You busted. You cannot hit again. Click 'Stay'"
+    }
+})
+
+let stayButton = document.querySelector('#stay')
+stayButton.addEventListener('click', ()=>{
+    stayButton.disabled = true
+    hitButton.disabled = true
+    dealerPlay(users[1])
+})
+
 //// ----------------------------------------------------------------------
 dealHand()
 console.log(users[0])
-hitMe(0)
 console.log(users[0])
 console.log(users[1])
-dealerPlay(users[1])
+// dealerPlay(users[1])
 console.log(shuffledDeck)

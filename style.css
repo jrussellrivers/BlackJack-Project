@@ -29,3 +29,10 @@ html{
     padding: 20px;
     margin: 5px;
 }
+.deck{
+    border: double;
+    background: white;
+    padding: 10px;
+    width: 70px;
+    margin: 20px;
+}
