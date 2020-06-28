@@ -47,21 +47,13 @@ function shuffle(array) {
 }
 
 let shuffledDeck = shuffle(createDeck())
-
+// let shuffledDeck2 = shuffle(createDeck())
+// let shuffledDeck3 = shuffle(createDeck())
+// let shuffledDeck4 = shuffle(createDeck())
+// let shuffledDeck5 = shuffle(createDeck())
+// Array.prototype.push.apply(shuffledDeck,shuffledDeck2)
 // Creating players and hands
-// function playHand(){
-//     let users = [{
-//         name: 'Player',
-//         points: 0,
-//         hand: []
-//     },{
-//         name: 'Dealer',
-//         points: 0,
-//         hand: []
-//     }]
-//     win.innerText = 
-//     dealHand()
-// }
+
 let users = [{
     name: 'Player',
     points: 0,
@@ -94,6 +86,7 @@ const changePoints = (card, user)=>{
 
 const dealHand = ()=>{
     win.innerText = ''
+    message.innerText = ''
     for (i=0; i < 2; i++){
         for (j=0; j < users.length; j++){
             let card = shuffledDeck.pop()
@@ -272,5 +265,6 @@ dealButton.addEventListener('click', ()=>{
 //// ----------------------------------------------------------------------
 dealButton.disabled = true
 dealHand()
-console.log(users[0])
-console.log(users[1])
+// console.log(users[0])
+// console.log(users[1])
+// console.log(shuffledDeck)
