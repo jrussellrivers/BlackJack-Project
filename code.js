@@ -1,6 +1,7 @@
 // Building a deck
-
-let suits = ['Clubs', 'Diamonds', 'Hearts', 'Spades']
+// ♠♣♥♦
+// let suits = ['Clubs', 'Diamonds', 'Hearts', 'Spades']
+let suits = ['♣', '♦', '♥', '♠']
 let cardNums = ['2','3','4','5','6','7','8','9','10','J','Q','K','A']
 
 function createDeck(){
@@ -67,7 +68,7 @@ let dealerPoints = document.getElementById('points-dealer')
 function makeCard(card){
     let el = document.createElement('div');
     el.setAttribute('class', 'card')
-    el.innerHTML = card.suit + ' ' + card.value;
+    el.innerHTML = card.suit + '<br>' + card.value;
     return el
 }
 
@@ -194,6 +195,9 @@ function dealerPlay(dealer){
             console.log('Dealer wins!')
             break
         case (score < 21 && score < users[0].points):
+            console.log('You win!')
+            break
+        case (score < 21 && score == users[0].points):
             console.log('You win!')
             break
     }

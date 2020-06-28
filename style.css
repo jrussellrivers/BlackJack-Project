@@ -10,3 +10,22 @@ html{
     color: white;
     padding: 5px;
 }
+.users{
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+.user-block{
+    border: double black;
+    padding: 10px;
+    background: white;
+    margin: 20px;
+}
+.hand{
+    display: flex;
+}
+.card{
+    border: solid;
+    padding: 20px;
+    margin: 5px;
+}
