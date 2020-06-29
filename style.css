@@ -4,6 +4,7 @@ html{
 }
 .main{
     background: red;
+    padding-bottom: 10px;
 }
 .banner{
     background: black;
@@ -41,4 +42,14 @@ html{
 }
 .message{
     padding: 0px 0px 20px;
+}
+.scoreboard{
+    background: white;
+    border: double;
+    width: 70px;
+    margin: auto;
+    padding: 10px;
+} 
+.win{
+    padding-top: 20px;
 }

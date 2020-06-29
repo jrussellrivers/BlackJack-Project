@@ -163,6 +163,8 @@ function check(idx){
 
 // I think Im gonna code the dealer playing here
 // These console logs are gonna do things later
+let scoreboard = document.getElementById('scoreboard')
+let scoreboardScore = 0
 
 function dealerPlay(dealer){
     let win = document.getElementById('win')
@@ -189,26 +191,31 @@ function dealerPlay(dealer){
             break
         case (score > 21 && users[0].points == 21):
             win.innerText = 'Dealer Busted. You got Blackjack! You Win!'
+            scoreboardScore += 1
             break
         case (score > 21 && users[0].points < 21):
             win.innerText = 'Dealer bust. You win!'
+            scoreboardScore += 1
             break
         case (score < 21 && users[0].points > 21):
             win.innerText = 'You busted. Dealer wins!'
             break
         case (score < 21 && users[0].points == 21):
             win.innerText = 'Blackjack! You win!'
+            scoreboardScore += 1
             break
         case (score < 21 && score > users[0].points):
             win.innerText = 'Dealer wins!'
             break
         case (score < 21 && score < users[0].points):
             win.innerText = 'You win!'
+            scoreboardScore += 1
             break
         case (score < 21 && score == users[0].points):
             win.innerText = 'Draw'
             break
     }
+    scoreboard.innerText = 'Wins: ' + scoreboardScore
 }
 
 function changeDeck(){
