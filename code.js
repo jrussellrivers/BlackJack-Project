@@ -206,7 +206,7 @@ function dealerPlay(dealer){
             win.innerText = 'You win!'
             break
         case (score < 21 && score == users[0].points):
-            win.innerText = 'You win!'
+            win.innerText = 'Draw'
             break
     }
 }
