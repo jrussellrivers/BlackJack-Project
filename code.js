@@ -46,12 +46,22 @@ function shuffle(array) {
     return array
 }
 
-let shuffledDeck = shuffle(createDeck())
+let shuffledDeck = createDeck()
+let newDeck2 = createDeck()
+let newDeck3 = createDeck()
+let newDeck4 = createDeck()
+let newDeck5 = createDeck()
+shuffledDeck = shuffle(shuffledDeck.concat(newDeck2,newDeck3,newDeck4,newDeck5))
+
+// let shuffledDeck = shuffle(createDeck())
 // let shuffledDeck2 = shuffle(createDeck())
 // let shuffledDeck3 = shuffle(createDeck())
 // let shuffledDeck4 = shuffle(createDeck())
 // let shuffledDeck5 = shuffle(createDeck())
 // Array.prototype.push.apply(shuffledDeck,shuffledDeck2)
+// shuffledDeck = shuffledDeck.concat(shuffledDeck2,shuffledDeck3,shuffledDeck4,shuffledDeck5)
+console.log(shuffledDeck)
+
 // Creating players and hands
 
 let users = [{
@@ -94,13 +104,13 @@ const dealHand = ()=>{
             users[j].hand.push(card)
             dealCard(card, users[j])
             changePoints(card, users[j])
-            if (i == 1){
-                doubleAces(j)
-            }
+            // check(0)
             dealerPoints.innerText = users[1].points
             playerPoints.innerText = users[0].points
         }
     }
+    // doubleAces(0)
+    // doubleAces(1)
     changeDeck()
 }
 
@@ -131,14 +141,14 @@ function hitMe(idx){
         playerPoints.innerText = playerHandScore()
     }
 
-function doubleAces(idx){
-    for (i=0; i < users[idx].hand.length; i++){
-        if(users[idx].hand[0].value == 'A' && users[idx].hand[1].value == 'A'){
-            newWeight = {weight:1}
-            Object.assign(users[idx].hand[0], newWeight)
-        }
-    }
-}
+// function doubleAces(idx){
+//     if(users[idx].hand[0].value == 'A' && users[idx].hand[1].value == 'A'){
+//         newWeight = {weight:1}
+//         Object.assign(users[idx].hand[0], newWeight)
+//         newPoints = {points:12}
+
+//     }
+// }
 
 function check(idx){
     for (i=0; i < users[idx].hand.length; i++){
