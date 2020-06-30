@@ -103,8 +103,10 @@ const dealHand = ()=>{
             // console.log(card)
             users[j].hand.push(card)
             dealCard(card, users[j])
+            doubleAces(0)
+            doubleAces(1)
             changePoints(card, users[j])
-            // check(0)
+            // check(0s)
             dealerPoints.innerText = users[1].points
             playerPoints.innerText = users[0].points
         }
@@ -141,14 +143,12 @@ function hitMe(idx){
         playerPoints.innerText = playerHandScore()
     }
 
-// function doubleAces(idx){
-//     if(users[idx].hand[0].value == 'A' && users[idx].hand[1].value == 'A'){
-//         newWeight = {weight:1}
-//         Object.assign(users[idx].hand[0], newWeight)
-//         newPoints = {points:12}
-
-//     }
-// }
+function doubleAces(idx){
+    if(users[idx].hand.length > 1 && users[idx].hand[0].value == 'A' && users[idx].hand[1].value == 'A'){
+        newWeight = {weight:1}
+        Object.assign(users[idx].hand[1], newWeight)
+    }
+}
 
 function check(idx){
     for (i=0; i < users[idx].hand.length; i++){
