@@ -1,6 +1,7 @@
 # Blackjack Project
 Mini blackjack simulator made to demonstrate DOM manupulation
-The game can be played here: https://jrussellrivers.github.io/BlackJack-Project/
+## The game can be played here: 
+https://jrussellrivers.github.io/BlackJack-Project/
 
 ## Assignment 
 This purpose of this project was to practice using DOM manipulation by creating either a memory baseed card game or a blackjack simulator. I chose to create a Blackjack game
